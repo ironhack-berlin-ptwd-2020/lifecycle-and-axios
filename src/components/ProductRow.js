@@ -1,14 +1,32 @@
 import React from 'react';
 
-function ProductRow(props) {
+class ProductRow extends React.Component {
 
-  // props.theProduct
+  // props.theProduct  
 
-  return (
-    <div>
-      <h2>{props.theProduct.name} -- {props.theProduct.price}</h2>
-    </div>
-  );
+  state = {
+    updated: false
+  }
+
+  // if price gets updated (not same anymore after update) --> 
+  componentDidUpdate(prevProps) {
+
+    if (prevProps.price !== this.props.price) {
+
+      this.setState({
+        updated: true
+      })
+    }
+  }
+
+  render() {
+
+    return (
+      <div style={{ backgroundColor: this.state.updated ? 'yellow' : 'white' }}>
+        <h2>{this.props.name} -- {this.props.price}</h2>
+      </div>
+    );
+  }
 }
 
 export default ProductRow;
